@@ -8,11 +8,11 @@ for i in range(1, 101):
 
 
 def print_no(a):
-    print(a.get())
+    while not q.empty():
+        print(a.get())
 
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
-    while not q.empty():
-        for _ in range(4):
-            t = executor.submit(print_no, q)
+    for _ in range(4):
+        executor.submit(print_no, q)
 
