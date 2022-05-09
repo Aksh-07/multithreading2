@@ -11,7 +11,6 @@ for i in range(1, 101):
 
 
 def print_no(a, lock):
-
     id_ = get_ident()
     while not a.empty():
         lock.acquire()
@@ -24,6 +23,7 @@ lock_ = Lock()
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
     threads = [executor.submit(print_no, q, lock=lock_) for _ in range(4)]
+
 
 f = time.time()
 

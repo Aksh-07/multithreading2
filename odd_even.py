@@ -8,7 +8,7 @@ class EvenNo(Thread):
             if i % 2 == 0:
                 id_ = get_ident()
                 print(f"Thread_{id_}: {i}\n")
-            time.sleep(0.1)
+            time.sleep(0.01)
 
 
 class OddNo(Thread):
@@ -17,7 +17,7 @@ class OddNo(Thread):
             if i % 2 != 0:
                 id_ = get_ident()
                 print(f"Thread_{id_}: {i}\n")
-            time.sleep(0.1)
+            time.sleep(0.01)
 
 
 odd_no = OddNo()
@@ -28,4 +28,3 @@ even_no.start()
 
 odd_no.join()
 even_no.join()
-
