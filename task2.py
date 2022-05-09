@@ -10,18 +10,18 @@ for i in range(1, 101):
     q.put(i)
 
 
-def print_no(a, lock, t_id):
+def print_no(a, lock):
     with lock:
         while not q.empty():
+            t_id = get_ident()
+
             print(f"Thread_{t_id}: {a.get()}")
 
 
 lock_ = Lock()
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-    for _ in range(4):
-        id_ = get_ident()
-        executor.submit(print_no, a=q, lock=lock_, t_id=id_)
+    threads = [executor.submit(print_no, a=q, lock=lock_) for _ in range(4)]
 
 # threads = [Thread(target=print_no, args=(q, lock_, get_ident())) for _ in range(4)]
 #
