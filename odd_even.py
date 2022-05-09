@@ -1,4 +1,4 @@
-from threading import Thread
+from threading import Thread, get_ident
 import time
 
 
@@ -6,7 +6,8 @@ class EvenNo(Thread):
     def run(self):
         for i in range(1, 101):
             if i % 2 == 0:
-                print(f"{i}\n")
+                id_ = get_ident()
+                print(f"Thread_{id_}: {i}\n")
             time.sleep(0.1)
 
 
@@ -14,7 +15,8 @@ class OddNo(Thread):
     def run(self):
         for i in range(1, 101):
             if i % 2 != 0:
-                print(f"{i}\n")
+                id_ = get_ident()
+                print(f"Thread_{id_}: {i}\n")
             time.sleep(0.1)
 
 
@@ -24,5 +26,6 @@ even_no = EvenNo()
 odd_no.start()
 even_no.start()
 
-
+odd_no.join()
+even_no.join()
 
