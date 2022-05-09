@@ -28,3 +28,4 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
 f = time.time()
 
 print(f"Total time: {f-s}")
+
