@@ -1,28 +1,31 @@
 import concurrent.futures
-from threading import get_ident, Lock
+from threading import get_ident, Condition, BoundedSemaphore
 import time
 import queue
 
 s = time.time()
 q = queue.Queue()
+# cv = Condition()
+bs = BoundedSemaphore(4)
 
 for i in range(1, 101):
     q.put(i)
 
 
-def print_no(a, lock):
+def print_no(a):
     id_ = get_ident()
     while not a.empty():
-        lock.acquire()
+        bs.acquire()
+        # cv.acquire()
+        # cv.notify_all()
         print(f"Thread_{id_}: {a.get()}")
-        lock.release()
-        time.sleep(0.01)
+        bs.release()
+        # cv.wait()
+        # cv.release()
 
-
-lock_ = Lock()
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
-    threads = [executor.submit(print_no, q, lock=lock_) for _ in range(4)]
+    threads = [executor.submit(print_no, q) for _ in range(4)]
 
 
 f = time.time()
