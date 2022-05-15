@@ -28,7 +28,7 @@ class PrintNo1(Thread):
                 print(f"Thread_{self.name}: {v}")
                 event1.clear()
                 event2.set()
-                if v == 97:
+                if self.queue.qsize() == 3:
                     break
         print(f"Thread_{self.name} finished")
 
@@ -47,7 +47,7 @@ class PrintNo2(Thread):
                 print(f"Thread_{self.name}: {v}")
                 event2.clear()
                 event3.set()
-                if v == 98:
+                if self.queue.qsize() == 2:
                     break
         print(f"Thread_{self.name} finished")
 
@@ -66,7 +66,7 @@ class PrintNo3(Thread):
                 print(f"Thread_{self.name}: {v}")
                 event3.clear()
                 event4.set()
-                if v == 99:
+                if self.queue.qsize() == 1:
                     break
         print(f"Thread_{self.name} finished")
 
