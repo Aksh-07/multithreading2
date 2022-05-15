@@ -24,10 +24,12 @@ class PrintNo1(Thread):
         while not self.queue.empty():
             event1_set = event1.wait()
             if event1_set:
-                print(f"Thread_{self.name}: {self.queue.get()}")
-            event1.clear()
-            event2.set()
-            # time.sleep(0.1)
+                v = self.queue.get()
+                print(f"Thread_{self.name}: {v}")
+                event1.clear()
+                event2.set()
+                if v == 97:
+                    break
         print(f"Thread_{self.name} finished")
 
 
@@ -41,10 +43,12 @@ class PrintNo2(Thread):
         while not self.queue.empty():
             event2_set = event2.wait()
             if event2_set:
-                print(f"Thread_{self.name}: {self.queue.get()}")
-            event2.clear()
-            event3.set()
-            # time.sleep(0.1)
+                v = self.queue.get()
+                print(f"Thread_{self.name}: {v}")
+                event2.clear()
+                event3.set()
+                if v == 98:
+                    break
         print(f"Thread_{self.name} finished")
 
 
@@ -58,10 +62,12 @@ class PrintNo3(Thread):
         while not self.queue.empty():
             event3_set = event3.wait()
             if event3_set:
-                print(f"Thread_{self.name}: {self.queue.get()}")
-            event3.clear()
-            event4.set()
-            # time.sleep(0.1)
+                v = self.queue.get()
+                print(f"Thread_{self.name}: {v}")
+                event3.clear()
+                event4.set()
+                if v == 99:
+                    break
         print(f"Thread_{self.name} finished")
 
 
@@ -75,10 +81,10 @@ class PrintNo4(Thread):
         while not self.queue.empty():
             event4_set = event4.wait()
             if event4_set:
-                print(f"Thread_{self.name}: {self.queue.get()}")
+                v = self.queue.get()
+                print(f"Thread_{self.name}: {v}")
             event4.clear()
             event1.set()
-            # time.sleep(0.1)
         print(f"Thread_{self.name} finished")
 
 
@@ -91,6 +97,7 @@ t_list = [t1, t2, t3, t4]
 
 for t in t_list:
     t.start()
+
 
 for t in t_list:
     t.join()
